@@ -85,19 +85,23 @@ export default ({ event }) => {
           </div><hr />
           <FormTitle tag='h2' >Information For Developers</FormTitle>
           <FormText type='description' style={{ paddingBottom: '6px' }}>
-            All snippets are run asynchronously, along with that there are three predefined variables:<br />
+            All snippets are run asynchronously, in the mainworld, along with that there are three predefined variables:<br /><br />
 
-            <ul>
-              <li>Logger</li>
-              <li>Webpack</li>
-              <li>Patcher</li>
-            </ul>
+            <div className='jss-codeblock-help'>
+              {makeCodeBlock({
+                content: `
+                  let Logger  = this.JSS.Logger;
+                  let Patcher = this.JSS.Patcher;
+                  let Webpack = this.JSS.Webpack;
+                `.replaceAll(' '.repeat(18), '').trim(), lang: 'js'
+              }, null, {})}
+            </div><br />
 
             You can look at the source to find out how to use these or you can play with the Webpack and Patcher in the console by using the exposed "JSS" variable.<br /><br />
 
             Of course if you don't want to use my patcher and/or webpack you can always redefine them like so:<br /><br />
 
-            <div className='jss-codeblock-help'>{makeCodeBlock({ content: 'Webpack = window.Webpack;', lang: 'js' }, null, {})}</div><br />
+            <div className='jss-codeblock-help'>{makeCodeBlock({ content: 'Webpack = this.Webpack;', lang: 'js' }, null, {})}</div><br />
 
             Do note though that this requires the user to also have whatever plugin that defines said variable installed.
           </FormText>

@@ -1,10 +1,10 @@
 {
 	"Webpack KSearch": [
-		"window.searchModulesForKeyword = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    const props = [module, Object.getPrototypeOf(module)]\n      .map(Object.keys).reduce((prev, curr) => prev.concat(curr));\n    \n    return props.some(prop => {\n      if (!matchCase) prop = prop.toLowerCase();\n      if (~prop.indexOf(keyword)) return true;\n    })\n  });\n};\n\nreturn () => delete window.searchModulesWithKeyword;",
+		"this.searchModulesForKeyword = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    const props = [module, Object.getPrototypeOf(module)]\n      .map(Object.keys).reduce((prev, curr) => prev.concat(curr));\n    \n    return props.some(prop => {\n      if (!matchCase) prop = prop.toLowerCase();\n      if (~prop.indexOf(keyword)) return true;\n    })\n  });\n};\n\nreturn () => delete this.searchModulesForKeyword;",
 		true
 	],
 	"Webpack VSearch": [
-		"window.searchModulesForValue = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    return Object.values(module).some(prop => {\n      if (typeof prop === 'string' || prop instanceof String) {\n        if (!matchCase) prop = prop.toLowerCase();\n        if (~prop.indexOf(keyword)) return true;\n      }\n    });\n  });\n};\n\nreturn () => delete window.searchModulesByValue;",
+		"this.searchModulesForValue = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    return Object.values(module).some(prop => {\n      if (typeof prop === 'string' || prop instanceof String) {\n        if (!matchCase) prop = prop.toLowerCase();\n        if (~prop.indexOf(keyword)) return true;\n      }\n    });\n  });\n};\n\nreturn () => delete this.searchModulesForValue;",
 		true
 	],
 	"Async Example": [

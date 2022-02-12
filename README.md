@@ -12,8 +12,8 @@ A Kernel Package that adds a tab in settings that you can add custom JavaScript 
 
 - A context menu item in the MessageContextMenu to quickly add/run valid JS codeblocks
 
+  
 
-
-#### Incomplete  
+### Incomplete  
 
 - An option to easily assign a keybind to a snippet

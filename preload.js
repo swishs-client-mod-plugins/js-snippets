@@ -5,6 +5,8 @@ const path = require('path');
 const electron = require('electron');
 
 const writeFile = (_path, data, errorHandler) => {
+  if (!fs.existsSync(path.join(__dirname, _path)))
+    fs.mkdirSync(path.dirname(path.join(__dirname, _path)), { recursive: true });
   return fs.writeFileSync(path.join(__dirname, _path), data, errorHandler);
 };
 
@@ -29,5 +31,5 @@ const openPath = (_path) => {
 };
 
 electron.contextBridge.exposeInMainWorld('_JSS', {
-  loadStyle, openPath, writeFile, readFile,
+  loadStyle, openPath, writeFile, readFile
 });

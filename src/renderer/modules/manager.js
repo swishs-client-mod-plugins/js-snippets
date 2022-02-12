@@ -48,6 +48,9 @@ export default class Manger {
       this.makeToast(`Error trying to back up the snippets file! Check console for more details.`);
       Logger.error('Error trying to back up the snippets file!', error);
     });
+
+    this.makeToast(`Successfully backed up snippets to backup-${timestamp}.json!`, true);
+    Logger.info(`Successfully backed up snippets to backup-${timestamp}.json!`);
   }
 
   static getSnippet(key) {
@@ -73,7 +76,7 @@ export default class Manger {
   static deleteSnippet(key) {
     let snippets = this.snippets;
 
-    try { delete snippets[key]; } catch (error) {
+    try { delete snippets[key]; this.unpatches[key]?.(); } catch (error) {
       this.makeToast(`Error deleting snippet ${key}! Check console for more details.`);
       return Logger.error(`Error deleting snippet ${key}!`, error);
     }
@@ -146,12 +149,13 @@ export default class Manger {
 
     let returnValue;
     try {
-      // define scope vars
-      let Logger = (await import('./logger')).default;
-      let Patcher = (await import('./patcher')).default;
-      let Webpack = (await import('./webpack')).default;
+      returnValue = await Function(`
+        let Logger  = this.JSS.Logger;
+        let Patcher = this.JSS.Patcher;
+        let Webpack = this.JSS.Webpack;
 
-      returnValue = await eval(`(async () => { ${snippet} })()`);
+        return (async () => { ${snippet} })();
+      `)();
     } catch (error) {
       this.makeToast(`Error running snippet ${key}! Check console for more details.`);
       return Logger.error(`Error running snippet ${key}!`, error);

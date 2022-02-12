@@ -26,9 +26,8 @@ export const Panel = () => {
 
   const snippetRef = React.useRef(snippet);
   const setSnippet = (data) => {
-    snippetRef.last = snippetRef._last;
+    snippetRef.last = snippetRef.current;
     snippetRef.current = data;
-    snippetRef._last = data;
     _setSnippet(data);
   };
 

@@ -118,14 +118,16 @@ const patchMessageContextMenu = () => {
   });
 };
 
-let styleElement;
+let styleNode;
 const loadStyles = () => {
   const style = _JSS.loadStyle('dist/styles.css');
   if (!style) return Logger.warn('Could not find styles file.');
 
-  styleElement = document.head.appendChild(Object.assign(document.createElement('style'), {
+  const styleElement = Object.assign(document.createElement('style'), {
     id: 'js-snippets-style', textContent: style,
-  }));
+  });
+
+  styleNode = document.head.appendChild(styleElement);
 };
 
 export default {
@@ -137,10 +139,7 @@ export default {
       patchSettingsView();
       patchMessageContextMenu();
 
-      window.JSS = {
-        Patcher: Patcher,
-        Webpack: Webpack,
-      };
+      window.JSS = { Logger, Patcher, Webpack };
 
       Logger.info('Package finished loading!');
 
@@ -157,7 +156,7 @@ export default {
   stop() {
     Patcher.unpatchAll();
     Manager.unpatchAll();
-    styleElement?.remove();
+    styleNode?.remove();
   },
 };
 
