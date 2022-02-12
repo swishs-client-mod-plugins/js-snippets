@@ -11,11 +11,6 @@ class Logger {
   static __initStatic4() {this.error = (...information) => this.#log('error', information);}
 } Logger.__initStatic(); Logger.__initStatic2(); Logger.__initStatic3(); Logger.__initStatic4();
 
-var logger = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': Logger
-});
-
 function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* The below source code is licensed under MIT. */
 
 class Webpack {
@@ -85,11 +80,6 @@ class Webpack {
   static __initStatic15() {this.findByDisplayName = this.getByDisplayName;}
   static __initStatic16() {this.findByDisplayNameAll = this.getByDisplayNameAll;}
 } Webpack.__initStatic(); Webpack.__initStatic2(); Webpack.__initStatic3(); Webpack.__initStatic4(); Webpack.__initStatic5(); Webpack.__initStatic6(); Webpack.__initStatic7(); Webpack.__initStatic8(); Webpack.__initStatic9(); Webpack.__initStatic10(); Webpack.__initStatic11(); Webpack.__initStatic12(); Webpack.__initStatic13(); Webpack.__initStatic14(); Webpack.__initStatic15(); Webpack.__initStatic16();
-
-var webpack = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': Webpack
-});
 
 /* The below source code is licensed under MIT. */
 
@@ -180,6 +170,9 @@ class Manger {
       this.makeToast(`Error trying to back up the snippets file! Check console for more details.`);
       Logger.error('Error trying to back up the snippets file!', error);
     });
+
+    this.makeToast(`Successfully backed up snippets to backup-${timestamp}.json!`, true);
+    Logger.info(`Successfully backed up snippets to backup-${timestamp}.json!`);
   }
 
   static getSnippet(key) {
@@ -205,7 +198,7 @@ class Manger {
   static deleteSnippet(key) {
     let snippets = this.snippets;
 
-    try { delete snippets[key]; } catch (error) {
+    try { delete snippets[key]; _optionalChain$2([this, 'access', _ => _.unpatches, 'access', _2 => _2[key], 'optionalCall', _3 => _3()]); } catch (error) {
       this.makeToast(`Error deleting snippet ${key}! Check console for more details.`);
       return Logger.error(`Error deleting snippet ${key}!`, error);
     }
@@ -267,23 +260,24 @@ class Manger {
   }
 
   static async runSnippet(key, value, startup) {
-    let snippet = value || _optionalChain$2([this, 'access', _ => _.snippets, 'access', _2 => _2[key], 'optionalAccess', _3 => _3[0]]);
+    let snippet = value || _optionalChain$2([this, 'access', _4 => _4.snippets, 'access', _5 => _5[key], 'optionalAccess', _6 => _6[0]]);
 
     if (!snippet) {
       return Logger.warn(`Snippet ${key} is empty!`);
     }
 
     // run cleanup function
-    await _optionalChain$2([this, 'access', _4 => _4.unpatches, 'access', _5 => _5[key], 'optionalCall', _6 => _6()]);
+    await _optionalChain$2([this, 'access', _7 => _7.unpatches, 'access', _8 => _8[key], 'optionalCall', _9 => _9()]);
 
     let returnValue;
     try {
-      // define scope vars
-      let Logger = (await Promise.resolve().then(function () { return logger; })).default;
-      let Patcher = (await Promise.resolve().then(function () { return patcher; })).default;
-      let Webpack = (await Promise.resolve().then(function () { return webpack; })).default;
+      returnValue = await Function(`
+        let Logger  = this.JSS.Logger;
+        let Patcher = this.JSS.Patcher;
+        let Webpack = this.JSS.Webpack;
 
-      returnValue = await eval(`(async () => { ${snippet} })()`);
+        return (async () => { ${snippet} })();
+      `)();
     } catch (error) {
       this.makeToast(`Error running snippet ${key}! Check console for more details.`);
       return Logger.error(`Error running snippet ${key}!`, error);
@@ -380,11 +374,6 @@ class Patcher {
   static __initStatic4() {this.before = (...args) => this.#performPatch(this.#BEFORE, ...args);}
   static __initStatic5() {this.instead = (...args) => this.#performPatch(this.#INSTEAD, ...args);}
 } Patcher.__initStatic(); Patcher.__initStatic2(); Patcher.__initStatic3(); Patcher.__initStatic4(); Patcher.__initStatic5();
-
-var patcher = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': Patcher
-});
 
 const _jsxFileName$7 = "/home/runner/work/js-snippets/js-snippets/src/renderer/components/CreateModal.jsx";/* The below source code is licensed under MIT. */
 
@@ -848,46 +837,50 @@ var HelpModal = ({ event }) => {
             )
           ), React.createElement('hr', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 85}} )
           , React.createElement(FormTitle, { tag: "h2", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 86}} , "Information For Developers"  )
-          , React.createElement(FormText, { type: "description", style: { paddingBottom: '6px' }, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 87}}, "All snippets are run asynchronously, along with that there are three predefined variables:"
-                        , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 88}} )
+          , React.createElement(FormText, { type: "description", style: { paddingBottom: '6px' }, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 87}}, "All snippets are run asynchronously, in the mainworld, along with that there are three predefined variables:"
+                           , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 88}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 88}} )
 
-            , React.createElement('ul', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 90}}
-              , React.createElement('li', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 91}}, "Logger")
-              , React.createElement('li', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 92}}, "Webpack")
-              , React.createElement('li', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 93}}, "Patcher")
-            ), "You can look at the source to find out how to use these or you can play with the Webpack and Patcher in the console by using the exposed \"JSS\" variable."
+            , React.createElement('div', { className: "jss-codeblock-help", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 90}}
+              , makeCodeBlock({
+                content: `
+                  let Logger  = this.JSS.Logger;
+                  let Patcher = this.JSS.Patcher;
+                  let Webpack = this.JSS.Webpack;
+                `.replaceAll(' '.repeat(18), '').trim(), lang: 'js'
+              }, null, {})
+            ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 98}} ), "You can look at the source to find out how to use these or you can play with the Webpack and Patcher in the console by using the exposed \"JSS\" variable."
 
-                                          , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 96}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 96}} ), "Of course if you don't want to use my patcher and/or webpack you can always redefine them like so:"
+                                          , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 100}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 100}} ), "Of course if you don't want to use my patcher and/or webpack you can always redefine them like so:"
 
-                              , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 98}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 98}} )
+                              , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 102}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 102}} )
 
-            , React.createElement('div', { className: "jss-codeblock-help", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 100}}, makeCodeBlock({ content: 'Webpack = window.Webpack;', lang: 'js' }, null, {})), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 100}} ), "Do note though that this requires the user to also have whatever plugin that defines said variable installed."
+            , React.createElement('div', { className: "jss-codeblock-help", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 104}}, makeCodeBlock({ content: 'Webpack = this.Webpack;', lang: 'js' }, null, {})), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 104}} ), "Do note though that this requires the user to also have whatever plugin that defines said variable installed."
 
 
           )
-          , React.createElement(FormTitle, { className: "jss-modal-help-content-mbottom", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 104}}, "Cleanup Functions" )
-          , React.createElement(FormText, { type: "description", style: { paddingBottom: '6px' }, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 105}}, "If a snippet returns a function it will be cached and will run on every snippet rerun or can be manually called with the cleanup button next to the rocket."
-                                         , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 106}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 106}} ), "If your snippet does anything that can be unpatched such as polluting mainworld or patching a function please add one of these, not only does it make your life easier by unpatching subsequent reruns but it also lets the user unpatch it themself, they will also be run if the plugin unloaded."
+          , React.createElement(FormTitle, { className: "jss-modal-help-content-mbottom", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 108}}, "Cleanup Functions" )
+          , React.createElement(FormText, { type: "description", style: { paddingBottom: '6px' }, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 109}}, "If a snippet returns a function it will be cached and will run on every snippet rerun or can be manually called with the cleanup button next to the rocket."
+                                         , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 110}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 110}} ), "If your snippet does anything that can be unpatched such as polluting mainworld or patching a function please add one of these, not only does it make your life easier by unpatching subsequent reruns but it also lets the user unpatch it themself, they will also be run if the plugin unloaded."
 
-                                                               , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 108}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 108}} )
+                                                               , React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 112}} ), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 112}} )
 
-            , React.createElement('div', { className: "jss-codeblock-help", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 110}}, makeCodeBlock({ content: `return () => { unpatch(); Logger.info('How about you unpatch some bitches?'); };`, lang: 'js' }, null, {})), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 110}} ), "If a type other than function is returned nothing will be cached and the return value will be displayed in console."
+            , React.createElement('div', { className: "jss-codeblock-help", __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 114}}, makeCodeBlock({ content: `return () => { unpatch(); Logger.info('How about you unpatch some bitches?'); };`, lang: 'js' }, null, {})), React.createElement('br', {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 114}} ), "If a type other than function is returned nothing will be cached and the return value will be displayed in console."
 
 
           )
         )
       )
-      , React.createElement(ModalFooter, {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 116}}
+      , React.createElement(ModalFooter, {__self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 120}}
         , React.createElement(Button, {
           onClick: () => Manger.backupSnippets(),
           size: Button.Sizes.LARGE,
-          color: Button.Colors.GREEN, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 117}}, "Backup Snippets"
+          color: Button.Colors.GREEN, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 121}}, "Backup Snippets"
 
         )
         , React.createElement(Button, {
           onClick: event.onClose,
           look: Button.Looks.LINK,
-          color: Button.Colors.TRANSPARENT, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 123}}, "Cancel"
+          color: Button.Colors.TRANSPARENT, __self: undefined, __source: {fileName: _jsxFileName$2, lineNumber: 127}}, "Cancel"
 
         )
       )
@@ -916,9 +909,8 @@ const Panel = () => {
 
   const snippetRef = React.useRef(snippet);
   const setSnippet = (data) => {
-    snippetRef.last = snippetRef._last;
+    snippetRef.last = snippetRef.current;
     snippetRef.current = data;
-    snippetRef._last = data;
     _setSnippet(data);
   };
 
@@ -988,16 +980,16 @@ const Panel = () => {
   }, []);
 
   return (
-    React.createElement(FormSection, {__self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 101}}
-      , React.createElement(FormTitle, { className: "jss-header", tag: "h1", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 102}}, "JS Snippets" )
-      , React.createElement(Tooltip, { className: "jss-info-tooltip", text: "Information Modal" , position: "top", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 103}}
-        , React.createElement('div', { className: "jss-info", onClick: () => ModalActions.openModal((event) => React.createElement(HelpModal, { event: event, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 104}} )), __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 104}}
-          , React.createElement(InfoIcon, { height: "16", width: "16", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 105}} )
+    React.createElement(FormSection, {__self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 100}}
+      , React.createElement(FormTitle, { className: "jss-header", tag: "h1", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 101}}, "JS Snippets" )
+      , React.createElement(Tooltip, { className: "jss-info-tooltip", text: "Information Modal" , position: "top", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 102}}
+        , React.createElement('div', { className: "jss-info", onClick: () => ModalActions.openModal((event) => React.createElement(HelpModal, { event: event, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 103}} )), __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 103}}
+          , React.createElement(InfoIcon, { height: "16", width: "16", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 104}} )
         )
       )
-      , React.createElement('div', { className: "jss-container", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 108}}
-        , React.createElement(SideBar, { tabState: tabState, topPasses: topPasses, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 109}} )
-        , React.createElement(CodeBlock, { tabState: tabState, topPasses: topPasses, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 110}} )
+      , React.createElement('div', { className: "jss-container", __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 107}}
+        , React.createElement(SideBar, { tabState: tabState, topPasses: topPasses, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 108}} )
+        , React.createElement(CodeBlock, { tabState: tabState, topPasses: topPasses, __self: undefined, __source: {fileName: _jsxFileName$1, lineNumber: 109}} )
       )
     )
   );
@@ -1114,14 +1106,16 @@ const patchMessageContextMenu = () => {
   });
 };
 
-let styleElement;
+let styleNode;
 const loadStyles = () => {
   const style = _JSS.loadStyle('dist/styles.css');
   if (!style) return Logger.warn('Could not find styles file.');
 
-  styleElement = document.head.appendChild(Object.assign(document.createElement('style'), {
+  const styleElement = Object.assign(document.createElement('style'), {
     id: 'js-snippets-style', textContent: style,
-  }));
+  });
+
+  styleNode = document.head.appendChild(styleElement);
 };
 
 var index = {
@@ -1133,10 +1127,7 @@ var index = {
       patchSettingsView();
       patchMessageContextMenu();
 
-      window.JSS = {
-        Patcher: Patcher,
-        Webpack: Webpack,
-      };
+      window.JSS = { Logger, Patcher, Webpack };
 
       Logger.info('Package finished loading!');
 
@@ -1153,7 +1144,7 @@ var index = {
   stop() {
     Patcher.unpatchAll();
     Manger.unpatchAll();
-    _optionalChain([styleElement, 'optionalAccess', _12 => _12.remove, 'call', _13 => _13()]);
+    _optionalChain([styleNode, 'optionalAccess', _12 => _12.remove, 'call', _13 => _13()]);
   },
 };
 
