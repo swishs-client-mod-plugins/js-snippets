@@ -1,0 +1,14 @@
+{
+	"Webpack KSearch": [
+		"window.searchModulesForKeyword = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    const props = [module, Object.getPrototypeOf(module)]\n      .map(Object.keys).reduce((prev, curr) => prev.concat(curr));\n    \n    return props.some(prop => {\n      if (!matchCase) prop = prop.toLowerCase();\n      if (~prop.indexOf(keyword)) return true;\n    })\n  });\n};\n\nreturn () => delete window.searchModulesWithKeyword;",
+		true
+	],
+	"Webpack VSearch": [
+		"window.searchModulesForValue = (keyword, matchCase = false) => {\n  return Webpack.getAllModules(module => {\n    return Object.values(module).some(prop => {\n      if (typeof prop === 'string' || prop instanceof String) {\n        if (!matchCase) prop = prop.toLowerCase();\n        if (~prop.indexOf(keyword)) return true;\n      }\n    });\n  });\n};\n\nreturn () => delete window.searchModulesByValue;",
+		true
+	],
+	"Async Example": [
+		"Logger.log('Waiting...');\nconst beforeTime = Date.now();\n\nawait new Promise((res) => setTimeout(res, 1000));\n\nLogger.log(`Done! Time Taken: ${Date.now() - beforeTime}ms`);",
+		false
+	]
+}
