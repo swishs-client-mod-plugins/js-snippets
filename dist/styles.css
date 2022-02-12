@@ -1,0 +1,176 @@
+/* The below source code is licensed under MIT. */
+.jss-header {
+  margin-bottom: 20px;
+  display: inline-flex;
+}
+.jss-info {
+  padding: 4px;
+  display: inline;
+  cursor: pointer;
+  margin-left: 2px;
+  color: var(--interactive-normal);
+}
+.jss-info svg:active {
+  padding-top: 1px;
+  color: var(--interactive-active);
+  background-color: var(--background-modifier-active);
+}
+.jss-info-tooltip {
+  display: inline;
+}
+.jss-container {
+  width: 104%;
+  display: flex;
+  height: calc(92vh - 125px);
+}
+.jss-sidebar {
+  width: 175px;
+  padding: 10px;
+  display: block;
+  background-color: var(--background-secondary-alt);
+}
+.jss-sidebar-scroller {
+  height: calc(92vh - 175px);
+}
+.jss-sidebar-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.jss-sidebar-topbar > h3 {
+  margin-bottom: 0;
+}
+.jss-sidebar-divider {
+  margin: 5px 0 10px;
+  border-bottom: 1px solid;
+  border-color: var(--background-modifier-accent);
+}
+.jss-codeblock-help > pre {
+  user-select: text;
+  line-height: 1.125rem;
+  white-space: pre-wrap;
+  background-color: var(--background-tertiary);
+}
+.jss-codeblock-help > pre > code {
+  padding: 12px !important;
+}
+.jss-codeblock-line {
+  height: 17px;
+  display: block;
+}
+.jss-codeblock-number {
+  display: inline;
+  user-select: none;
+  margin-right: 10px;
+  border-right: 1px solid var(--background-modifier-accent);
+}
+.jss-codeblock > pre {
+  width: 100%;
+  user-select: text;
+  line-height: 1.125rem;
+  background-color: var(--background-tertiary);
+}
+.jss-codeblock > pre > code {
+  padding: 12px !important;
+  height: calc(92vh - 165px);
+  border-radius: 4px 4px 4px 0;
+}
+.jss-codeblock > textarea {
+  width: 100%;
+  resize: none;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 17px;
+  white-space: nowrap;
+  height: calc(92vh - 165px);
+  border-radius: 4px 4px 4px 0;
+  font-family: var(--font-code);
+  color: var(--header-secondary);
+  background-color: var(--background-tertiary);
+}
+.jss-codeblock-container {
+  background-color: var(--background-secondary-alt);
+}
+.jss-codeblock-topbar {
+  height: 40px;
+  display: flex;
+  margin-right: 5px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.jss-codeblock-topbar-rocket:hover {
+  cursor: pointer !important;
+  background-color: var(--background-primary) !important;
+}
+.jss-codeblock-topbar h3 {
+  padding: 12px;
+  margin-bottom: 0;
+}
+.jss-codeblock-topbar h3:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.jss-icon {
+  color: var(--interactive-normal);
+}
+.jss-icon:hover {
+  color: var(--interactive-active);
+}
+.jss-modal-help-content hr {
+  border: 0;
+  height: 2px;
+  margin: 12px 0px 16px 0px;
+  background-color: var(--background-modifier-accent);
+}
+.jss-modal-help-content ul {
+  padding: 6px 0 8px 36px;
+  list-style-type: disc;
+}
+.jss-modal-help-content h2 {
+  margin-bottom: 12px;
+}
+.jss-modal-help-content h5 {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.jss-modal-help-content > div:first-child {
+  margin-top: 12px;
+}
+.jss-modal-help-content-mbottom {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.jss-modal-help-shortcuts {
+  column-count: 3;
+  column-gap: 12px;
+  padding-left: 24px;
+}
+.jss-modal-create-content {
+  padding: 10px 16px 10px 16px;
+}
+.jss-modal-create-closebutton {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+}
+.jss-modal-delete-content {
+  text-align: center;
+  padding-left: 16px;
+}
+.jss-modal-delete-closebutton {
+  top: 12px;
+  right: 4px;
+  position: absolute;
+}
+.jss-modal-delete-title {
+  font-weight: 700;
+  margin-top: 40px;
+}
+.jss-modal-delete-subtitle {
+  margin-top: 8px;
+  margin-bottom: 32px;
+}
+.jss-modal-delete-button {
+  width: 100%;
+}
