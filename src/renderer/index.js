@@ -29,7 +29,7 @@ const patchSettingsView = (retry) => {
   } else {
     let count = 3;
     let checkInterval = setInterval(() => {
-      if (KernelSettings) {
+      if (KernelSettings?.register) {
         clearInterval(checkInterval);
         Patcher._patches.add(KernelSettings.register('JS Snippets', () => {
           return <SettingsSections.Panel />;
