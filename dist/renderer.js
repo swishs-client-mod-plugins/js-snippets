@@ -1017,7 +1017,7 @@ const patchSettingsView = (retry) => {
   } else {
     let count = 3;
     let checkInterval = setInterval(() => {
-      if (KernelSettings) {
+      if (_optionalChain([KernelSettings, 'optionalAccess', _5 => _5.register])) {
         clearInterval(checkInterval);
         Patcher._patches.add(KernelSettings.register('JS Snippets', () => {
           return React.createElement(SettingsSections.Panel, {__self: undefined, __source: {fileName: _jsxFileName, lineNumber: 35}} );
@@ -1053,7 +1053,7 @@ const patchMessageContextMenu = () => {
           return config => {
             const menu = render(config);
 
-            if (_optionalChain([menu, 'optionalAccess', _5 => _5.type, 'optionalAccess', _6 => _6.displayName]) === displayName && patch) {
+            if (_optionalChain([menu, 'optionalAccess', _6 => _6.type, 'optionalAccess', _7 => _7.displayName]) === displayName && patch) {
               lazyPatch(); patch(Webpack.getModule(filter)); patch = false;
             }
 
@@ -1068,7 +1068,7 @@ const patchMessageContextMenu = () => {
 
   lazyPatchContextMenu('MessageContextMenu', MessageContextMenu => {
     Patcher.after(MessageContextMenu, 'default', ([args], ret) => {
-      const match = _optionalChain([args, 'access', _7 => _7.message, 'access', _8 => _8.content, 'access', _9 => _9.match, 'call', _10 => _10(/```js(.*?)```/s), 'optionalAccess', _11 => _11[1]]);
+      const match = _optionalChain([args, 'access', _8 => _8.message, 'access', _9 => _9.content, 'access', _10 => _10.match, 'call', _11 => _11(/```js(.*?)```/s), 'optionalAccess', _12 => _12[1]]);
       if (!match) return ret;
 
       ret.props.children.splice(4, 0,
@@ -1144,7 +1144,7 @@ var index = {
   stop() {
     Patcher.unpatchAll();
     Manger.unpatchAll();
-    _optionalChain([styleNode, 'optionalAccess', _12 => _12.remove, 'call', _13 => _13()]);
+    _optionalChain([styleNode, 'optionalAccess', _13 => _13.remove, 'call', _14 => _14()]);
   },
 };
 
