@@ -1,3 +1,5 @@
+# Discontinued in favor of https://github.com/swishs-client-mod-plugins/code-snippets
+
 # JS Snippets
 
 A Kernel Package that adds a tab in settings that you can add custom JavaScript to. (https://github.com/kernel-mod/electron)
